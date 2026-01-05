@@ -32,8 +32,8 @@ export default function Navbar() {
                     <Image
                         src="/assets/Trip24-Final-Logo.png"
                         alt="Trips24"
-                        width={120}
-                        height={120}
+                        width={150}
+                        height={150}
                         className="rounded"
                     />
                 </Link>
