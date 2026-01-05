@@ -5,6 +5,7 @@ import Hero from '@/components/dom/Hero';
 import Navbar from '@/components/dom/Navbar';
 import About from '@/components/dom/About';
 import Services from '@/components/dom/Services';
+import TruckFleet from '@/components/dom/TruckFleet';
 import Contact from '@/components/dom/Contact';
 import AmbientSound from '@/components/dom/AmbientSound';
 
@@ -24,6 +25,7 @@ export default function Home() {
         <Hero />
         <About />
         <Services />
+        <TruckFleet />
         <Contact />
       </div>
 
