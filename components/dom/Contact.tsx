@@ -33,27 +33,6 @@ export default function Contact() {
                     </button>
                 </div>
             </motion.div>
-
-            {/* Footer */}
-            <footer className="absolute bottom-0 w-full py-8 border-t border-white/10">
-                <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <div className="flex items-center gap-3">
-                        <Image
-                            src="/assets/Trip24-Final-Logo.png"
-                            alt="Trips24"
-                            width={30}
-                            height={30}
-                            className="rounded"
-                        />
-                        <span className="text-gray-400">© 2026 Trips24. All rights reserved.</span>
-                    </div>
-                    <div className="flex gap-6 text-gray-400 text-sm">
-                        <a href="#" className="hover:text-white transition-colors">Privacy</a>
-                        <a href="#" className="hover:text-white transition-colors">Terms</a>
-                        <a href="#" className="hover:text-white transition-colors">Careers</a>
-                    </div>
-                </div>
-            </footer>
         </section>
     );
 }

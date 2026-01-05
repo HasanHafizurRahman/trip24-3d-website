@@ -9,6 +9,7 @@ import TruckFleet from '@/components/dom/TruckFleet';
 import Testimonials from '@/components/dom/Testimonials';
 import FAQ from '@/components/dom/FAQ';
 import Contact from '@/components/dom/Contact';
+import Footer from '@/components/dom/Footer';
 import AmbientSound from '@/components/dom/AmbientSound';
 
 const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: false });
@@ -31,6 +32,7 @@ export default function Home() {
         <Testimonials />
         <FAQ />
         <Contact />
+        <Footer />
       </div>
 
       {/* Ambient Sound Control */}
