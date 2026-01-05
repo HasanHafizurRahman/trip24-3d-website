@@ -102,16 +102,23 @@ export default function RoadsideElements() {
             // Randomly choose side: -1 (left) or 1 (right)
             const side = i % 2 === 0 ? 1 : -1;
 
+            // Adjust X position based on side. User wants right side elements further out.
+            const lightX = side === 1 ? 8 : -4; // Right: 8, Left: -4
+
             items.push({
                 type: 'light',
-                position: [side * 4, 0, zPos] as [number, number, number],
+                position: [lightX, 0, zPos] as [number, number, number],
                 rotation: [0, side === 1 ? -Math.PI / 4 : Math.PI / 4, 0] as [number, number, number]
             });
 
             if (i % 2 !== 0) {
+                // Spawns on opposite side of the light for variety
+                const billboardSide = -side; // If side is left (-1), billboard is right (1)
+                const billboardX = billboardSide === 1 ? 10 : -6; // Right: 10, Left: -6
+
                 items.push({
                     type: 'billboard',
-                    position: [-side * 6, 0, zPos - 50] as [number, number, number] // Offset from light
+                    position: [billboardX, 0, zPos - 50] as [number, number, number]
                 });
             }
         }

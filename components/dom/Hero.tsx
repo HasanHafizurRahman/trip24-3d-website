@@ -56,35 +56,6 @@ export default function Hero() {
                 ))}
             </div>
 
-            {/* Logo */}
-            <motion.div
-                initial={{ opacity: 0, scale: 0, rotate: -180 }}
-                animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                transition={{
-                    duration: 1.2,
-                    delay: 0.2,
-                    type: "spring",
-                    stiffness: 100
-                }}
-                className="mb-6 relative"
-            >
-                <motion.div animate={floatAnimation}>
-                    <Image
-                        src="/assets/Trip24-Final-Logo.png"
-                        alt="Trips24 Logo"
-                        width={140}
-                        height={140}
-                        className="drop-shadow-[0_0_30px_rgba(6,182,212,0.5)]"
-                    />
-                </motion.div>
-                {/* Glow ring */}
-                <motion.div
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0, 0.5] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                    className="absolute inset-0 rounded-full border-2 border-cyan-400/30"
-                />
-            </motion.div>
 
             {/* Animated Brand Name */}
             <div className="text-center z-10 mb-4">
