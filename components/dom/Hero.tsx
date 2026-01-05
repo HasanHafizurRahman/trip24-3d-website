@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 // Letter animation variants
@@ -135,40 +134,6 @@ export default function Hero() {
                 transition={{ duration: 1, delay: 0.2 }}
                 className="relative z-10 flex flex-col items-center"
             >
-                {/* Logo with Glow */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0, rotate: -180 }}
-                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                    transition={{ duration: 1.2, delay: 0.3, type: "spring", stiffness: 100 }}
-                    className="mb-6 relative"
-                >
-                    <motion.div
-                        animate={{ y: [0, -10, 0] }}
-                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                        <Image
-                            src="/assets/Trip24-Final-Logo.png"
-                            alt="Trip24 Logo"
-                            width={120}
-                            height={120}
-                            className="drop-shadow-[0_0_40px_rgba(6,182,212,0.6)]"
-                        />
-                    </motion.div>
-                    {/* Pulsing Glow Ring */}
-                    <motion.div
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        animate={{ scale: [1, 1.3, 1], opacity: [0.6, 0, 0.6] }}
-                        transition={{ duration: 2.5, repeat: Infinity }}
-                        className="absolute inset-0 rounded-full border-2 border-cyan-400/40"
-                    />
-                    <motion.div
-                        initial={{ scale: 0.9, opacity: 0 }}
-                        animate={{ scale: [1.1, 1.4, 1.1], opacity: [0.4, 0, 0.4] }}
-                        transition={{ duration: 2.5, delay: 0.3, repeat: Infinity }}
-                        className="absolute inset-0 rounded-full border border-blue-400/30"
-                    />
-                </motion.div>
-
                 {/* Brand Name with 3D Effect */}
                 <div className="text-center mb-4">
                     <motion.h1

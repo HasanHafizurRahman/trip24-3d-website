@@ -29,6 +29,7 @@ export default function Truck() {
                     scale={900}
                     position={[0, 0.5, 0]}
                     rotation={[0, 0, 0]} // Back-facing (show rear of truck)
+                // rotation={[0, Math.PI, 0]} // Front-facing (show front of truck)
                 />
             </Float>
         </group>
