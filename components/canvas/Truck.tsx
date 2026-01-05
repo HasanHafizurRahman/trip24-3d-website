@@ -9,7 +9,7 @@ export default function Truck() {
     const truckRef = useRef<Group>(null);
 
     // Load the GLB model
-    const { scene } = useGLTF("/assets/pickup_truck_scene.glb");
+    const { scene } = useGLTF("/assets/NissanFrontierPickupTruck.glb");
 
     useFrame((state, delta) => {
         if (truckRef.current) {
@@ -26,7 +26,7 @@ export default function Truck() {
                 {/* The loaded GLB model */}
                 <primitive
                     object={scene}
-                    scale={1}
+                    scale={900}
                     position={[0, 0.5, 0]}
                     rotation={[0, 0, 0]} // Back-facing (show rear of truck)
                 />
@@ -36,4 +36,4 @@ export default function Truck() {
 }
 
 // Preload the model for better performance
-useGLTF.preload("/assets/pickup_truck_scene.glb");
+useGLTF.preload("/assets/NissanFrontierPickupTruck.glb");
