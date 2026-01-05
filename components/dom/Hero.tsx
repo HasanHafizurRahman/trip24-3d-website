@@ -152,35 +152,60 @@ export default function Hero() {
                 ))}
             </motion.div>
 
-            {/* CTA Buttons */}
+
+
+            {/* App Download Buttons */}
             <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 2.5 }}
-                className="mt-12 flex flex-col sm:flex-row gap-4"
+                transition={{ duration: 0.8, delay: 2.8 }}
+                className="mt-8 flex flex-col items-center gap-3"
             >
-                <motion.button
-                    whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(6, 182, 212, 0.5)" }}
-                    whileTap={{ scale: 0.95 }}
-                    className="group relative px-10 py-4 bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-500 bg-[length:200%_100%] text-white font-bold rounded-full overflow-hidden transition-all duration-500 hover:bg-right"
-                >
-                    <span className="relative z-10 flex items-center gap-2">
-                        Get Started
-                        <motion.span
-                            animate={{ x: [0, 5, 0] }}
-                            transition={{ duration: 1, repeat: Infinity }}
-                        >
-                            →
-                        </motion.span>
-                    </span>
-                </motion.button>
-                <motion.button
-                    whileHover={{ scale: 1.05, borderColor: "rgba(6, 182, 212, 0.5)" }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-10 py-4 border border-white/20 text-white font-bold rounded-full backdrop-blur-sm hover:bg-white/5 transition-all duration-300"
-                >
-                    Track Shipment
-                </motion.button>
+                <p className="text-gray-400 text-sm uppercase tracking-wider">Download the App</p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                    {/* App Store Button */}
+                    <motion.a
+                        href="#"
+                        whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(255, 255, 255, 0.2)" }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center gap-3 px-6 py-3 bg-black border border-white/20 rounded-xl hover:border-white/40 transition-all"
+                    >
+                        {/* Apple Logo SVG */}
+                        <svg className="w-8 h-8" viewBox="0 0 384 512" fill="url(#appleGradient)">
+                            <defs>
+                                <linearGradient id="appleGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stopColor="#f8f8f8" />
+                                    <stop offset="100%" stopColor="#a8a8a8" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
+                        </svg>
+                        <div className="flex flex-col items-start">
+                            <span className="text-gray-400 text-xs">Download on the</span>
+                            <span className="text-white font-semibold text-lg leading-tight">App Store</span>
+                        </div>
+                    </motion.a>
+
+                    {/* Google Play Button */}
+                    <motion.a
+                        href="#"
+                        whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(255, 255, 255, 0.2)" }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center gap-3 px-6 py-3 bg-black border border-white/20 rounded-xl hover:border-white/40 transition-all"
+                    >
+                        {/* Google Play Logo SVG */}
+                        <svg className="w-8 h-8" viewBox="0 0 512 512">
+                            <path fill="#4285F4" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0z" />
+                            <path fill="#34A853" d="M461.7 256.8l-80.9 80.9L104.6 499l256.7-180.4 100.4-61.8z" />
+                            <path fill="#FBBC04" d="M104.6 499l280.8-161.2-60.1-60.1L104.6 499z" />
+                            <path fill="#EA4335" d="M25.3 35.3v441.3L304.6 256 47 0c-12.7 6.8-21.7 19.2-21.7 35.3z" />
+                        </svg>
+                        <div className="flex flex-col items-start">
+                            <span className="text-gray-400 text-xs">GET IT ON</span>
+                            <span className="text-white font-semibold text-lg leading-tight">Google Play</span>
+                        </div>
+                    </motion.a>
+                </div>
             </motion.div>
 
             {/* Scroll Indicator */}
