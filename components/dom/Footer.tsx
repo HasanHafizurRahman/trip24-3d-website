@@ -24,8 +24,8 @@ const services = [
 
 const contactInfo = {
     address: "123 Logistics Hub, Suite 500, New York, NY 10001",
-    phone: "1-800-TRIPS24",
-    email: "support@trips24.com",
+    phone: "1-800-TRIP24",
+    email: "support@trip24.com",
     hours: "24/7 Support Available"
 };
 
@@ -43,7 +43,7 @@ export default function Footer() {
                         <Link href="/" className="flex items-center gap-3 mb-6">
                             <Image
                                 src="/assets/Trip24-Final-Logo.png"
-                                alt="Trips24"
+                                alt="Trip24"
                                 width={60}
                                 height={60}
                                 className="rounded"

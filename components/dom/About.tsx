@@ -32,7 +32,7 @@ export default function About() {
                             <span className="text-white">Logistics</span>
                         </h2>
                         <p className="text-xl text-gray-300 leading-relaxed mb-8">
-                            At Trips24, we don't just move cargo. We engineer movement.
+                            At Trip24, we don't just move cargo. We engineer movement.
                             With a fleet of state-of-the-art trucks and a network that spans the nation,
                             we deliver not just goods, but certainty.
                         </p>

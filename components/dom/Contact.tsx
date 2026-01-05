@@ -29,7 +29,7 @@ export default function Contact() {
                         Contact Us
                     </button>
                     <button className="px-10 py-4 border border-white/20 text-white font-bold rounded-full text-lg hover:bg-white/10 transition-all">
-                        Call: 1-800-TRIPS24
+                        Call: 1-800-TRIP24
                     </button>
                 </div>
             </motion.div>

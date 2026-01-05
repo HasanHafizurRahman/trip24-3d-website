@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Trips24 - Freight & Logistics",
+  title: "Trip24 - Freight & Logistics",
   description: "Next-gen freight services with a touch of mind-blowing 3D experience.",
 };
 

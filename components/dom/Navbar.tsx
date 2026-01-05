@@ -31,7 +31,7 @@ export default function Navbar() {
                 <Link href="/" className="flex items-center gap-3">
                     <Image
                         src="/assets/Trip24-Final-Logo.png"
-                        alt="Trips24"
+                        alt="Trip24"
                         width={150}
                         height={150}
                         className="rounded"
@@ -54,7 +54,7 @@ export default function Navbar() {
 
                 {/* CTA */}
                 <button className="px-5 py-2.5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold rounded-full text-sm hover:shadow-lg hover:shadow-cyan-500/30 transition-all">
-                    Get Quote
+                    Get Started
                 </button>
             </div>
         </motion.nav>
