@@ -6,6 +6,7 @@ import { Environment, Preload, PerspectiveCamera, Stars } from "@react-three/dre
 import { EffectComposer, Bloom, Noise, Vignette } from "@react-three/postprocessing";
 import Truck from "./Truck";
 import Road from "./Road";
+import RoadsideElements from "./RoadsideElements";
 
 export default function Scene({ children, ...props }: { children?: React.ReactNode;[key: string]: any }) {
     // Everything defined in here will persist between route changes, only children are swapped
@@ -21,6 +22,7 @@ export default function Scene({ children, ...props }: { children?: React.ReactNo
                 <Stars radius={100} depth={50} count={3000} factor={4} saturation={0} fade speed={1} />
                 <Truck />
                 <Road />
+                <RoadsideElements />
                 {children}
                 <Preload all />
                 <EffectComposer>
