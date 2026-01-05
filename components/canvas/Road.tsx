@@ -10,8 +10,8 @@ function LaneLines() {
 
     useFrame((state, delta) => {
         if (ref.current) {
-            ref.current.position.z -= delta * 20; // Fast speed
-            if (ref.current.position.z < -10) {
+            ref.current.position.z += delta * 20; // Reverse direction - moving towards camera
+            if (ref.current.position.z > 10) {
                 ref.current.position.z = 0;
             }
         }
