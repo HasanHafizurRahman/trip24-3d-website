@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 // Letter animation variants
@@ -28,17 +28,11 @@ const floatAnimation = {
 };
 
 export default function Hero() {
-    const { scrollYProgress } = useScroll();
-    const opacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
-    const scale = useTransform(scrollYProgress, [0, 0.25], [1, 0.9]);
-    const y = useTransform(scrollYProgress, [0, 0.25], [0, -50]);
-
-    const brandName = "TRIPS24".split("");
+    const brandName = "TRIP24".split("");
 
     return (
-        <motion.section
-            style={{ opacity, scale, y }}
-            className="relative h-screen w-full flex flex-col items-center justify-center p-8 overflow-hidden"
+        <section
+            className="relative h-screen w-full flex flex-col items-center justify-center p-8 overflow-hidden z-20"
         >
             {/* Animated Background Lines */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -229,6 +223,6 @@ export default function Hero() {
                 transition={{ delay: 2.2 }}
                 className="absolute bottom-20 right-8 w-24 h-24 border-r-2 border-b-2 border-cyan-500/30"
             />
-        </motion.section>
+        </section>
     );
 }
