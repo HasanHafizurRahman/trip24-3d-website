@@ -3,10 +3,10 @@
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Plane, Instance, Instances } from "@react-three/drei";
-import { Mesh, MeshStandardMaterial, DoubleSide } from "three";
+import { Group, Mesh, MeshStandardMaterial, DoubleSide } from "three";
 
 function LaneLines() {
-    const ref = useRef<any>(null);
+    const ref = useRef<Group>(null);
 
     useFrame((state, delta) => {
         if (ref.current) {

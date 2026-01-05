@@ -7,7 +7,7 @@ import { EffectComposer, Bloom, Noise, Vignette } from "@react-three/postprocess
 import Truck from "./Truck";
 import Road from "./Road";
 
-export default function Scene({ children, ...props }) {
+export default function Scene({ children, ...props }: { children?: React.ReactNode;[key: string]: any }) {
     // Everything defined in here will persist between route changes, only children are swapped
     return (
         <Canvas {...props} dpr={[1, 2]}> {/* dpr = device pixel ratio optimization */}
