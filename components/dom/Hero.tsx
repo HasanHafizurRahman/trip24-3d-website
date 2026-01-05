@@ -15,7 +15,7 @@ const letterVariants = {
             ease: [0.6, -0.05, 0.01, 0.99] as const
         }
     })
-} as const;
+};
 
 // Floating animation for decorative elements
 const floatAnimation = {
@@ -23,9 +23,9 @@ const floatAnimation = {
     transition: {
         duration: 4,
         repeat: Infinity,
-        ease: "easeInOut"
+        ease: "easeInOut" as const
     }
-} as const;
+};
 
 export default function Hero() {
     const brandName = "TRIP24".split("");
