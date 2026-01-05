@@ -2,222 +2,347 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 // Letter animation variants
 const letterVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 50, rotateX: -90 },
     visible: (i: number) => ({
         opacity: 1,
         y: 0,
+        rotateX: 0,
         transition: {
-            delay: i * 0.1,
-            duration: 0.5,
+            delay: i * 0.08,
+            duration: 0.6,
             ease: [0.6, -0.05, 0.01, 0.99] as const
         }
     })
 };
 
-// Floating animation for decorative elements
-const floatAnimation = {
-    y: [0, -15, 0],
-    transition: {
-        duration: 4,
-        repeat: Infinity,
-        ease: "easeInOut" as const
-    }
-};
+// Floating particles data
+const particles = Array.from({ length: 20 }, (_, i) => ({
+    id: i,
+    size: Math.random() * 4 + 2,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    duration: Math.random() * 10 + 10,
+    delay: Math.random() * 5
+}));
+
+// Stats data
+const stats = [
+    { value: 500, suffix: "+", label: "Active Trucks" },
+    { value: 99.9, suffix: "%", label: "On-Time Delivery" },
+    { value: 50, suffix: "+", label: "Cities Covered" },
+    { value: 24, suffix: "/7", label: "Support" }
+];
+
+// Animated counter component
+function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        const duration = 2000;
+        const steps = 60;
+        const increment = value / steps;
+        let current = 0;
+
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= value) {
+                setCount(value);
+                clearInterval(timer);
+            } else {
+                setCount(Math.floor(current * 10) / 10);
+            }
+        }, duration / steps);
+
+        return () => clearInterval(timer);
+    }, [value]);
+
+    return (
+        <span>
+            {value === 99.9 ? count.toFixed(1) : Math.floor(count)}{suffix}
+        </span>
+    );
+}
 
 export default function Hero() {
     const brandName = "TRIP24".split("");
 
     return (
-        <section
-            className="relative h-screen w-full flex flex-col items-center justify-center p-8 overflow-hidden z-20"
-        >
-            {/* Animated Background Lines */}
+        <section className="relative h-screen w-full flex flex-col items-center justify-center p-4 md:p-8 overflow-hidden z-20">
+            {/* Animated Gradient Background Overlay */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute inset-0 bg-gradient-to-b from-cyan-950/20 via-transparent to-black/50" />
+                <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px] animate-pulse" />
+                <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan-500/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: "1s" }} />
+            </div>
+
+            {/* Floating Particles */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                {[...Array(5)].map((_, i) => (
+                {particles.map((particle) => (
                     <motion.div
-                        key={i}
-                        initial={{ x: "-100%", opacity: 0 }}
-                        animate={{ x: "200%", opacity: [0, 0.3, 0] }}
-                        transition={{
-                            duration: 3,
-                            delay: i * 0.5,
-                            repeat: Infinity,
-                            repeatDelay: 2
-                        }}
-                        className="absolute h-[1px] w-1/2"
+                        key={particle.id}
+                        className="absolute rounded-full bg-cyan-400/30"
                         style={{
-                            top: `${20 + i * 15}%`,
-                            background: "linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.5), transparent)"
+                            width: particle.size,
+                            height: particle.size,
+                            left: `${particle.x}%`,
+                            top: `${particle.y}%`
+                        }}
+                        animate={{
+                            y: [0, -30, 0],
+                            opacity: [0.2, 0.6, 0.2],
+                            scale: [1, 1.2, 1]
+                        }}
+                        transition={{
+                            duration: particle.duration,
+                            delay: particle.delay,
+                            repeat: Infinity,
+                            ease: "easeInOut"
                         }}
                     />
                 ))}
             </div>
 
-
-            {/* Animated Brand Name */}
-            <div className="text-center z-10 mb-4">
-                <motion.h1
-                    className="text-7xl md:text-8xl lg:text-[10rem] font-black tracking-tighter flex"
-                    initial="hidden"
-                    animate="visible"
-                >
-                    {brandName.map((letter, i) => (
-                        <motion.span
-                            key={i}
-                            custom={i}
-                            variants={letterVariants}
-                            className="inline-block bg-gradient-to-b from-white via-blue-100 to-cyan-400 bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(6,182,212,0.3)]"
-                            style={{
-                                textShadow: "0 0 40px rgba(6, 182, 212, 0.2)"
-                            }}
-                            whileHover={{
-                                scale: 1.1,
-                                color: "#06b6d4",
-                                transition: { duration: 0.2 }
-                            }}
-                        >
-                            {letter}
-                        </motion.span>
-                    ))}
-                </motion.h1>
+            {/* Animated Background Lines */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                {[...Array(8)].map((_, i) => (
+                    <motion.div
+                        key={i}
+                        initial={{ x: "-100%", opacity: 0 }}
+                        animate={{ x: "200%", opacity: [0, 0.5, 0] }}
+                        transition={{
+                            duration: 4,
+                            delay: i * 0.3,
+                            repeat: Infinity,
+                            repeatDelay: 1
+                        }}
+                        className="absolute h-[1px] w-1/3"
+                        style={{
+                            top: `${10 + i * 12}%`,
+                            background: `linear-gradient(90deg, transparent, ${i % 2 === 0 ? 'rgba(6, 182, 212, 0.6)' : 'rgba(59, 130, 246, 0.4)'}, transparent)`
+                        }}
+                    />
+                ))}
             </div>
 
-            {/* Tagline with typewriter effect */}
+            {/* Main Hero Card - Glassmorphism Container */}
             <motion.div
-                initial={{ opacity: 0, width: 0 }}
-                animate={{ opacity: 1, width: "auto" }}
-                transition={{ delay: 1.2, duration: 0.8 }}
-                className="overflow-hidden"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.2 }}
+                className="relative z-10 flex flex-col items-center"
             >
-                <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.5 }}
-                    className="text-xl md:text-2xl text-gray-300 font-light tracking-[0.3em] uppercase text-center"
+                {/* Logo with Glow */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0, rotate: -180 }}
+                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    transition={{ duration: 1.2, delay: 0.3, type: "spring", stiffness: 100 }}
+                    className="mb-6 relative"
                 >
-                    Powering Your Logistics
-                </motion.p>
-            </motion.div>
-
-            {/* Business Keywords */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.8, duration: 0.6 }}
-                className="flex flex-wrap justify-center gap-4 mt-6"
-            >
-                {["Freight", "Trucking", "Logistics", "Delivery"].map((word, i) => (
-                    <motion.span
-                        key={word}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 2 + i * 0.15 }}
-                        whileHover={{ scale: 1.1, backgroundColor: "rgba(6, 182, 212, 0.2)" }}
-                        className="px-4 py-2 border border-white/10 rounded-full text-sm text-gray-400 backdrop-blur-sm cursor-default transition-colors"
+                    <motion.div
+                        animate={{ y: [0, -10, 0] }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                     >
-                        {word}
-                    </motion.span>
-                ))}
-            </motion.div>
+                        <Image
+                            src="/assets/Trip24-Final-Logo.png"
+                            alt="Trip24 Logo"
+                            width={120}
+                            height={120}
+                            className="drop-shadow-[0_0_40px_rgba(6,182,212,0.6)]"
+                        />
+                    </motion.div>
+                    {/* Pulsing Glow Ring */}
+                    <motion.div
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: [1, 1.3, 1], opacity: [0.6, 0, 0.6] }}
+                        transition={{ duration: 2.5, repeat: Infinity }}
+                        className="absolute inset-0 rounded-full border-2 border-cyan-400/40"
+                    />
+                    <motion.div
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: [1.1, 1.4, 1.1], opacity: [0.4, 0, 0.4] }}
+                        transition={{ duration: 2.5, delay: 0.3, repeat: Infinity }}
+                        className="absolute inset-0 rounded-full border border-blue-400/30"
+                    />
+                </motion.div>
 
-
-
-            {/* App Download Buttons */}
-            <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 2.8 }}
-                className="mt-8 flex flex-col items-center gap-3"
-            >
-                <p className="text-gray-400 text-sm uppercase tracking-wider">Download the App</p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                    {/* App Store Button */}
-                    <motion.a
-                        href="#"
-                        whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(255, 255, 255, 0.2)" }}
-                        whileTap={{ scale: 0.95 }}
-                        className="flex items-center gap-3 px-6 py-3 bg-black border border-white/20 rounded-xl hover:border-white/40 transition-all"
+                {/* Brand Name with 3D Effect */}
+                <div className="text-center mb-4">
+                    <motion.h1
+                        className="text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] font-black tracking-tight flex justify-center"
+                        initial="hidden"
+                        animate="visible"
+                        style={{ perspective: "1000px" }}
                     >
-                        {/* Apple Logo SVG */}
-                        <svg className="w-8 h-8" viewBox="0 0 384 512" fill="url(#appleGradient)">
-                            <defs>
-                                <linearGradient id="appleGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" stopColor="#f8f8f8" />
-                                    <stop offset="100%" stopColor="#a8a8a8" />
-                                </linearGradient>
-                            </defs>
-                            <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
-                        </svg>
-                        <div className="flex flex-col items-start">
-                            <span className="text-gray-400 text-xs">Download on the</span>
-                            <span className="text-white font-semibold text-lg leading-tight">App Store</span>
-                        </div>
-                    </motion.a>
-
-                    {/* Google Play Button */}
-                    <motion.a
-                        href="#"
-                        whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(255, 255, 255, 0.2)" }}
-                        whileTap={{ scale: 0.95 }}
-                        className="flex items-center gap-3 px-6 py-3 bg-black border border-white/20 rounded-xl hover:border-white/40 transition-all"
-                    >
-                        {/* Google Play Logo SVG */}
-                        <svg className="w-8 h-8" viewBox="0 0 512 512">
-                            <path fill="#4285F4" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0z" />
-                            <path fill="#34A853" d="M461.7 256.8l-80.9 80.9L104.6 499l256.7-180.4 100.4-61.8z" />
-                            <path fill="#FBBC04" d="M104.6 499l280.8-161.2-60.1-60.1L104.6 499z" />
-                            <path fill="#EA4335" d="M25.3 35.3v441.3L304.6 256 47 0c-12.7 6.8-21.7 19.2-21.7 35.3z" />
-                        </svg>
-                        <div className="flex flex-col items-start">
-                            <span className="text-gray-400 text-xs">GET IT ON</span>
-                            <span className="text-white font-semibold text-lg leading-tight">Google Play</span>
-                        </div>
-                    </motion.a>
+                        {brandName.map((letter, i) => (
+                            <motion.span
+                                key={i}
+                                custom={i}
+                                variants={letterVariants}
+                                className="inline-block bg-gradient-to-b from-white via-cyan-100 to-cyan-500 bg-clip-text text-transparent"
+                                style={{
+                                    textShadow: "0 0 60px rgba(6, 182, 212, 0.4), 0 0 120px rgba(6, 182, 212, 0.2)",
+                                    filter: "drop-shadow(0 4px 20px rgba(6, 182, 212, 0.3))"
+                                }}
+                                whileHover={{
+                                    scale: 1.15,
+                                    y: -10,
+                                    transition: { duration: 0.2 }
+                                }}
+                            >
+                                {letter}
+                            </motion.span>
+                        ))}
+                    </motion.h1>
                 </div>
+
+                {/* Tagline */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1, duration: 0.8 }}
+                    className="mb-8"
+                >
+                    <p className="text-lg sm:text-xl md:text-2xl text-gray-300 font-light tracking-[0.2em] sm:tracking-[0.3em] uppercase text-center">
+                        <span className="bg-gradient-to-r from-gray-400 via-white to-gray-400 bg-clip-text text-transparent">
+                            Powering Your Logistics
+                        </span>
+                    </p>
+                </motion.div>
+
+                {/* Animated Stats */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.3, duration: 0.8 }}
+                    className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mb-10"
+                >
+                    {stats.map((stat, i) => (
+                        <motion.div
+                            key={stat.label}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 1.5 + i * 0.1 }}
+                            whileHover={{ scale: 1.05, y: -5 }}
+                            className="text-center px-4 py-3 md:px-6 md:py-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl hover:border-cyan-500/30 transition-all"
+                        >
+                            <div className="text-2xl md:text-3xl font-black bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                                <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                            </div>
+                            <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider mt-1">
+                                {stat.label}
+                            </div>
+                        </motion.div>
+                    ))}
+                </motion.div>
+
+                {/* App Download Buttons */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 2 }}
+                    className="flex flex-col items-center gap-3"
+                >
+                    <p className="text-gray-500 text-xs uppercase tracking-widest">Download the App</p>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                        {/* App Store Button */}
+                        <motion.a
+                            href="#"
+                            whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(6, 182, 212, 0.3)" }}
+                            whileTap={{ scale: 0.95 }}
+                            className="flex items-center gap-3 px-5 py-2.5 bg-black/80 backdrop-blur-md border border-white/20 rounded-xl hover:border-cyan-500/50 transition-all"
+                        >
+                            <svg className="w-7 h-7" viewBox="0 0 384 512" fill="url(#appleGradient)">
+                                <defs>
+                                    <linearGradient id="appleGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stopColor="#ffffff" />
+                                        <stop offset="100%" stopColor="#a8a8a8" />
+                                    </linearGradient>
+                                </defs>
+                                <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
+                            </svg>
+                            <div className="flex flex-col items-start">
+                                <span className="text-gray-400 text-[10px]">Download on the</span>
+                                <span className="text-white font-semibold text-sm leading-tight">App Store</span>
+                            </div>
+                        </motion.a>
+
+                        {/* Google Play Button */}
+                        <motion.a
+                            href="#"
+                            whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(6, 182, 212, 0.3)" }}
+                            whileTap={{ scale: 0.95 }}
+                            className="flex items-center gap-3 px-5 py-2.5 bg-black/80 backdrop-blur-md border border-white/20 rounded-xl hover:border-cyan-500/50 transition-all"
+                        >
+                            <svg className="w-7 h-7" viewBox="0 0 512 512">
+                                <path fill="#4285F4" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0z" />
+                                <path fill="#34A853" d="M461.7 256.8l-80.9 80.9L104.6 499l256.7-180.4 100.4-61.8z" />
+                                <path fill="#FBBC04" d="M104.6 499l280.8-161.2-60.1-60.1L104.6 499z" />
+                                <path fill="#EA4335" d="M25.3 35.3v441.3L304.6 256 47 0c-12.7 6.8-21.7 19.2-21.7 35.3z" />
+                            </svg>
+                            <div className="flex flex-col items-start">
+                                <span className="text-gray-400 text-[10px]">GET IT ON</span>
+                                <span className="text-white font-semibold text-sm leading-tight">Google Play</span>
+                            </div>
+                        </motion.a>
+                    </div>
+                </motion.div>
             </motion.div>
 
             {/* Scroll Indicator */}
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 3 }}
-                className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+                transition={{ delay: 2.5 }}
+                className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
             >
                 <motion.span
-                    animate={{ opacity: [0.5, 1, 0.5] }}
+                    animate={{ opacity: [0.4, 1, 0.4] }}
                     transition={{ duration: 2, repeat: Infinity }}
-                    className="text-gray-500 text-xs uppercase tracking-[0.2em]"
+                    className="text-gray-500 text-[10px] uppercase tracking-[0.25em]"
                 >
                     Scroll to explore
                 </motion.span>
                 <motion.div
-                    animate={{ y: [0, 8, 0] }}
+                    animate={{ y: [0, 6, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
-                    className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center pt-2"
+                    className="w-5 h-8 border border-white/20 rounded-full flex justify-center pt-1.5"
                 >
                     <motion.div
-                        animate={{ opacity: [1, 0.3, 1], y: [0, 8, 0] }}
+                        animate={{ opacity: [1, 0.2, 1], y: [0, 6, 0] }}
                         transition={{ duration: 1.5, repeat: Infinity }}
-                        className="w-1.5 h-2.5 bg-cyan-400 rounded-full"
+                        className="w-1 h-2 bg-cyan-400 rounded-full"
                     />
                 </motion.div>
             </motion.div>
 
             {/* Corner Decorations */}
             <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.3 }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 0.4, scale: 1 }}
+                transition={{ delay: 1.8 }}
+                className="absolute top-20 left-6 w-20 h-20 border-l-2 border-t-2 border-cyan-500/40"
+            />
+            <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 0.4, scale: 1 }}
                 transition={{ delay: 2 }}
-                className="absolute top-20 left-8 w-24 h-24 border-l-2 border-t-2 border-cyan-500/30"
+                className="absolute bottom-20 right-6 w-20 h-20 border-r-2 border-b-2 border-cyan-500/40"
             />
             <motion.div
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 0.3 }}
+                animate={{ opacity: 0.2 }}
                 transition={{ delay: 2.2 }}
-                className="absolute bottom-20 right-8 w-24 h-24 border-r-2 border-b-2 border-cyan-500/30"
+                className="absolute top-20 right-6 w-16 h-16 border-r border-t border-blue-500/30"
+            />
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.2 }}
+                transition={{ delay: 2.4 }}
+                className="absolute bottom-20 left-6 w-16 h-16 border-l border-b border-blue-500/30"
             />
         </section>
     );
