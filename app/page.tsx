@@ -6,6 +6,7 @@ import Navbar from '@/components/dom/Navbar';
 import About from '@/components/dom/About';
 import Services from '@/components/dom/Services';
 import Contact from '@/components/dom/Contact';
+import AmbientSound from '@/components/dom/AmbientSound';
 
 const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: false });
 
@@ -25,6 +26,9 @@ export default function Home() {
         <Services />
         <Contact />
       </div>
+
+      {/* Ambient Sound Control */}
+      <AmbientSound />
     </main>
   );
 }

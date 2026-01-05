@@ -22,8 +22,8 @@ export default function Navbar() {
             animate={{ y: 0 }}
             transition={{ duration: 0.8 }}
             className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled
-                    ? "bg-black/80 backdrop-blur-lg border-b border-white/10 py-4"
-                    : "bg-transparent py-6"
+                ? "bg-black/80 backdrop-blur-lg border-b border-white/10 py-4"
+                : "bg-transparent py-6"
                 }`}
         >
             <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
@@ -32,11 +32,10 @@ export default function Navbar() {
                     <Image
                         src="/assets/Trip24-Final-Logo.png"
                         alt="Trips24"
-                        width={40}
-                        height={40}
+                        width={80}
+                        height={80}
                         className="rounded"
                     />
-                    <span className="text-xl font-bold text-white">TRIPS24</span>
                 </Link>
 
                 {/* Nav Links */}
