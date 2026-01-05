@@ -68,13 +68,13 @@ function Nebula() {
 
     useFrame((state) => {
         if (ref.current) {
-            ref.current.rotation.z = state.clock.elapsedTime * 0.01;
+            ref.current.rotation.z = state.clock.elapsedTime * 0.05;
         }
     });
 
     return (
         <mesh ref={ref} position={[0, 20, -100]} rotation={[0, 0, 0]}>
-            <planeGeometry args={[300, 150]} />
+            <planeGeometry args={[500, 250]} />
             <meshBasicMaterial transparent opacity={0.15}>
                 <primitive attach="map" object={createNebulaTexture()} />
             </meshBasicMaterial>
@@ -173,21 +173,15 @@ function TwinklingStars() {
             <bufferGeometry>
                 <bufferAttribute
                     attach="attributes-position"
-                    count={positions.length / 3}
-                    array={positions}
-                    itemSize={3}
+                    args={[positions, 3]}
                 />
                 <bufferAttribute
                     attach="attributes-color"
-                    count={colors.length / 3}
-                    array={colors}
-                    itemSize={3}
+                    args={[colors, 3]}
                 />
                 <bufferAttribute
                     attach="attributes-size"
-                    count={sizes.length}
-                    array={sizes}
-                    itemSize={1}
+                    args={[sizes, 1]}
                 />
             </bufferGeometry>
             <pointsMaterial
@@ -258,7 +252,7 @@ export default function SkyEnhancements() {
     return (
         <group>
             <TwinklingStars />
-            {/* <Nebula /> */}
+            <Nebula />
             <AuroraGlow />
             {/* Multiple shooting stars */}
             {[...Array(5)].map((_, i) => (
