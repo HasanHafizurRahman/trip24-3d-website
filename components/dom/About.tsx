@@ -33,8 +33,10 @@ export default function About() {
                     >
                         <h2 className="text-4xl md:text-6xl font-bold mb-8">
                             <span
-                                className="bg-clip-text text-transparent"
-                                style={{ backgroundImage: `linear-gradient(90deg, ${BRAND_PRIMARY}, ${BRAND_SECONDARY})` }}
+                                style={{
+                                    color: BRAND_PRIMARY,
+                                    textShadow: `0 0 40px ${BRAND_PRIMARY}40`
+                                }}
                             >
                                 Redefining
                             </span>
@@ -68,12 +70,15 @@ export default function About() {
                                 transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                                 viewport={{ once: true }}
                                 className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center transition-all"
-                                onMouseEnter={(e) => e.currentTarget.style.borderColor = `${BRAND_SECONDARY}50`}
+                                onMouseEnter={(e) => e.currentTarget.style.borderColor = `${BRAND_PRIMARY}60`}
                                 onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
                             >
                                 <div
-                                    className="text-4xl md:text-5xl font-black bg-clip-text text-transparent mb-2"
-                                    style={{ backgroundImage: `linear-gradient(90deg, ${BRAND_PRIMARY}, ${BRAND_SECONDARY})` }}
+                                    className="text-4xl md:text-5xl font-black mb-2"
+                                    style={{
+                                        color: BRAND_SECONDARY,
+                                        textShadow: `0 0 30px ${BRAND_SECONDARY}30`
+                                    }}
                                 >
                                     {stat.value}
                                 </div>
@@ -88,4 +93,6 @@ export default function About() {
         </section>
     );
 }
+
+
 
