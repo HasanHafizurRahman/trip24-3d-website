@@ -3,6 +3,10 @@
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
 
+// Brand colors
+const BRAND_PRIMARY = "#1B44E4";
+const BRAND_SECONDARY = "#F9BB32";
+
 const services: { title: string; desc: string; icon: ReactNode }[] = [
     {
         title: "LONG HAUL",
@@ -72,7 +76,10 @@ export default function Services() {
                 className="text-center mb-16"
             >
                 <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
-                    Our <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Services</span>
+                    Our <span
+                        className="bg-clip-text text-transparent"
+                        style={{ backgroundImage: `linear-gradient(90deg, ${BRAND_PRIMARY}, ${BRAND_SECONDARY})` }}
+                    >Services</span>
                 </h2>
                 <p className="text-gray-400 text-lg max-w-2xl mx-auto">
                     Comprehensive logistics solutions tailored to your needs
@@ -91,16 +98,41 @@ export default function Services() {
                         key={index}
                         variants={cardVariants}
                         whileHover={{ scale: 1.02, y: -5 }}
-                        className="group relative p-8 rounded-2xl bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 backdrop-blur-sm overflow-hidden cursor-pointer transition-all duration-300 hover:border-cyan-500/30 hover:shadow-lg hover:shadow-cyan-500/10"
+                        className="group relative p-8 rounded-2xl bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 backdrop-blur-sm overflow-hidden cursor-pointer transition-all duration-300"
+                        style={{ ["--hover-shadow" as string]: BRAND_PRIMARY }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.borderColor = `${BRAND_SECONDARY}50`;
+                            e.currentTarget.style.boxShadow = `0 10px 40px ${BRAND_PRIMARY}15`;
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+                            e.currentTarget.style.boxShadow = 'none';
+                        }}
                     >
                         {/* Background Glow */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div
+                            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                            style={{ background: `linear-gradient(135deg, ${BRAND_PRIMARY}10, ${BRAND_SECONDARY}08)` }}
+                        />
 
                         {/* Icon */}
-                        <div className="text-4xl mb-4">{service.icon}</div>
+                        <div
+                            className="text-4xl mb-4 transition-colors duration-300"
+                            style={{ color: BRAND_PRIMARY }}
+                        >{service.icon}</div>
 
                         {/* Content */}
-                        <h3 className="text-2xl font-bold mb-2 text-white group-hover:text-cyan-400 transition-colors">
+                        <h3
+                            className="text-2xl font-bold mb-2 text-white transition-colors duration-300 group-hover:text-transparent group-hover:bg-clip-text"
+                            style={{ ["--gradient" as string]: `linear-gradient(90deg, ${BRAND_SECONDARY}, ${BRAND_PRIMARY})` }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.backgroundImage = `linear-gradient(90deg, ${BRAND_SECONDARY}, white)`;
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.backgroundImage = 'none';
+                                e.currentTarget.style.color = 'white';
+                            }}
+                        >
                             {service.title}
                         </h3>
                         <p className="text-gray-400 group-hover:text-gray-300 transition-colors">
@@ -108,7 +140,10 @@ export default function Services() {
                         </p>
 
                         {/* Arrow */}
-                        <div className="mt-6 flex items-center gap-2 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div
+                            className="mt-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                            style={{ color: BRAND_SECONDARY }}
+                        >
                             <span className="text-sm font-medium">Learn more</span>
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />

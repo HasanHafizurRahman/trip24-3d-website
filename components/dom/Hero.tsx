@@ -3,6 +3,10 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
+// Brand colors
+const BRAND_PRIMARY = "#1B44E4";
+const BRAND_SECONDARY = "#F9BB32";
+
 // Letter animation variants
 const letterVariants = {
     hidden: { opacity: 0, y: 50, rotateX: -90 },
@@ -73,9 +77,15 @@ export default function Hero() {
         <section className="relative h-screen w-full flex flex-col items-center justify-center p-4 md:p-8 overflow-hidden z-20">
             {/* Animated Gradient Background Overlay */}
             <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute inset-0 bg-gradient-to-b from-cyan-950/20 via-transparent to-black/50" />
-                <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px] animate-pulse" />
-                <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan-500/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: "1s" }} />
+                <div className="absolute inset-0 bg-gradient-to-b from-blue-950/20 via-transparent to-black/50" />
+                <div
+                    className="absolute top-0 left-1/4 w-96 h-96 rounded-full blur-[100px] animate-pulse"
+                    style={{ backgroundColor: `${BRAND_PRIMARY}15` }}
+                />
+                <div
+                    className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full blur-[100px] animate-pulse"
+                    style={{ backgroundColor: `${BRAND_SECONDARY}10`, animationDelay: "1s" }}
+                />
             </div>
 
             {/* Floating Particles */}
@@ -83,12 +93,13 @@ export default function Hero() {
                 {particles.map((particle) => (
                     <motion.div
                         key={particle.id}
-                        className="absolute rounded-full bg-cyan-400/30"
+                        className="absolute rounded-full"
                         style={{
                             width: particle.size,
                             height: particle.size,
                             left: `${particle.x}%`,
-                            top: `${particle.y}%`
+                            top: `${particle.y}%`,
+                            backgroundColor: particle.id % 3 === 0 ? `${BRAND_SECONDARY}40` : `${BRAND_PRIMARY}30`
                         }}
                         animate={{
                             y: [0, -30, 0],
@@ -121,7 +132,7 @@ export default function Hero() {
                         className="absolute h-[1px] w-1/3"
                         style={{
                             top: `${10 + i * 12}%`,
-                            background: `linear-gradient(90deg, transparent, ${i % 2 === 0 ? 'rgba(6, 182, 212, 0.6)' : 'rgba(59, 130, 246, 0.4)'}, transparent)`
+                            background: `linear-gradient(90deg, transparent, ${i % 2 === 0 ? `${BRAND_PRIMARY}60` : `${BRAND_SECONDARY}40`}, transparent)`
                         }}
                     />
                 ))}
@@ -147,10 +158,11 @@ export default function Hero() {
                                 key={i}
                                 custom={i}
                                 variants={letterVariants}
-                                className="inline-block bg-gradient-to-b from-white via-cyan-100 to-cyan-500 bg-clip-text text-transparent"
+                                className="inline-block bg-clip-text text-transparent"
                                 style={{
-                                    textShadow: "0 0 60px rgba(6, 182, 212, 0.4), 0 0 120px rgba(6, 182, 212, 0.2)",
-                                    filter: "drop-shadow(0 4px 20px rgba(6, 182, 212, 0.3))"
+                                    backgroundImage: `linear-gradient(180deg, #ffffff, ${BRAND_PRIMARY})`,
+                                    textShadow: `0 0 60px ${BRAND_PRIMARY}40, 0 0 120px ${BRAND_PRIMARY}20`,
+                                    filter: `drop-shadow(0 4px 20px ${BRAND_PRIMARY}30)`
                                 }}
                                 whileHover={{
                                     scale: 1.15,
@@ -192,9 +204,17 @@ export default function Hero() {
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: 1.5 + i * 0.1 }}
                             whileHover={{ scale: 1.05, y: -5 }}
-                            className="text-center px-4 py-3 md:px-6 md:py-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl hover:border-cyan-500/30 transition-all"
+                            className="text-center px-4 py-3 md:px-6 md:py-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl transition-all"
+                            style={{
+                                ["--hover-border" as string]: BRAND_SECONDARY
+                            }}
+                            onMouseEnter={(e) => e.currentTarget.style.borderColor = `${BRAND_SECONDARY}50`}
+                            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
                         >
-                            <div className="text-2xl md:text-3xl font-black bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                            <div
+                                className="text-2xl md:text-3xl font-black bg-clip-text text-transparent"
+                                style={{ backgroundImage: `linear-gradient(90deg, ${BRAND_PRIMARY}, ${BRAND_SECONDARY})` }}
+                            >
                                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                             </div>
                             <div className="text-xs md:text-sm text-gray-400 uppercase tracking-wider mt-1">
@@ -216,9 +236,12 @@ export default function Hero() {
                         {/* App Store Button */}
                         <motion.a
                             href="#"
-                            whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(6, 182, 212, 0.3)" }}
+                            whileHover={{ scale: 1.05, boxShadow: `0 0 30px ${BRAND_PRIMARY}30` }}
                             whileTap={{ scale: 0.95 }}
-                            className="flex items-center gap-3 px-5 py-2.5 bg-black/80 backdrop-blur-md border border-white/20 rounded-xl hover:border-cyan-500/50 transition-all"
+                            className="flex items-center gap-3 px-5 py-2.5 bg-black/80 backdrop-blur-md border border-white/20 rounded-xl transition-all"
+                            style={{ ["--hover-border" as string]: BRAND_PRIMARY }}
+                            onMouseEnter={(e) => e.currentTarget.style.borderColor = `${BRAND_PRIMARY}80`}
+                            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'}
                         >
                             <svg className="w-7 h-7" viewBox="0 0 384 512" fill="url(#appleGradient)">
                                 <defs>
@@ -238,9 +261,11 @@ export default function Hero() {
                         {/* Google Play Button */}
                         <motion.a
                             href="#"
-                            whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(6, 182, 212, 0.3)" }}
+                            whileHover={{ scale: 1.05, boxShadow: `0 0 30px ${BRAND_PRIMARY}30` }}
                             whileTap={{ scale: 0.95 }}
-                            className="flex items-center gap-3 px-5 py-2.5 bg-black/80 backdrop-blur-md border border-white/20 rounded-xl hover:border-cyan-500/50 transition-all"
+                            className="flex items-center gap-3 px-5 py-2.5 bg-black/80 backdrop-blur-md border border-white/20 rounded-xl transition-all"
+                            onMouseEnter={(e) => e.currentTarget.style.borderColor = `${BRAND_PRIMARY}80`}
+                            onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'}
                         >
                             <svg className="w-7 h-7" viewBox="0 0 512 512">
                                 <path fill="#4285F4" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0z" />
@@ -279,7 +304,8 @@ export default function Hero() {
                     <motion.div
                         animate={{ opacity: [1, 0.2, 1], y: [0, 6, 0] }}
                         transition={{ duration: 1.5, repeat: Infinity }}
-                        className="w-1 h-2 bg-cyan-400 rounded-full"
+                        className="w-1 h-2 rounded-full"
+                        style={{ backgroundColor: BRAND_SECONDARY }}
                     />
                 </motion.div>
             </motion.div>
@@ -289,26 +315,31 @@ export default function Hero() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 0.4, scale: 1 }}
                 transition={{ delay: 1.8 }}
-                className="absolute top-20 left-6 w-20 h-20 border-l-2 border-t-2 border-cyan-500/40"
+                className="absolute top-20 left-6 w-20 h-20 border-l-2 border-t-2"
+                style={{ borderColor: `${BRAND_PRIMARY}60` }}
             />
             <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 0.4, scale: 1 }}
                 transition={{ delay: 2 }}
-                className="absolute bottom-20 right-6 w-20 h-20 border-r-2 border-b-2 border-cyan-500/40"
+                className="absolute bottom-20 right-6 w-20 h-20 border-r-2 border-b-2"
+                style={{ borderColor: `${BRAND_SECONDARY}60` }}
             />
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 0.2 }}
                 transition={{ delay: 2.2 }}
-                className="absolute top-20 right-6 w-16 h-16 border-r border-t border-blue-500/30"
+                className="absolute top-20 right-6 w-16 h-16 border-r border-t"
+                style={{ borderColor: `${BRAND_PRIMARY}50` }}
             />
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 0.2 }}
                 transition={{ delay: 2.4 }}
-                className="absolute bottom-20 left-6 w-16 h-16 border-l border-b border-blue-500/30"
+                className="absolute bottom-20 left-6 w-16 h-16 border-l border-b"
+                style={{ borderColor: `${BRAND_SECONDARY}50` }}
             />
         </section>
     );
 }
+

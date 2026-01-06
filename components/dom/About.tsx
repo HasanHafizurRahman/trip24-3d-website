@@ -2,6 +2,10 @@
 
 import { motion } from "framer-motion";
 
+// Brand colors
+const BRAND_PRIMARY = "#1B44E4";
+const BRAND_SECONDARY = "#F9BB32";
+
 export default function About() {
     const stats = [
         { value: "500+", label: "Trucks" },
@@ -13,7 +17,10 @@ export default function About() {
     return (
         <section className="min-h-screen w-full flex flex-col items-center justify-center py-24 px-8 relative overflow-hidden">
             {/* Background Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/20 to-transparent" />
+            <div
+                className="absolute inset-0"
+                style={{ background: `linear-gradient(180deg, transparent, ${BRAND_PRIMARY}10, transparent)` }}
+            />
 
             <div className="max-w-6xl mx-auto relative z-10">
                 <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -25,7 +32,10 @@ export default function About() {
                         viewport={{ once: true }}
                     >
                         <h2 className="text-4xl md:text-6xl font-bold mb-8">
-                            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                            <span
+                                className="bg-clip-text text-transparent"
+                                style={{ backgroundImage: `linear-gradient(90deg, ${BRAND_PRIMARY}, ${BRAND_SECONDARY})` }}
+                            >
                                 Redefining
                             </span>
                             <br />
@@ -57,9 +67,14 @@ export default function About() {
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                                 viewport={{ once: true }}
-                                className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center hover:border-cyan-500/30 transition-colors"
+                                className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center transition-all"
+                                onMouseEnter={(e) => e.currentTarget.style.borderColor = `${BRAND_SECONDARY}50`}
+                                onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
                             >
-                                <div className="text-4xl md:text-5xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-2">
+                                <div
+                                    className="text-4xl md:text-5xl font-black bg-clip-text text-transparent mb-2"
+                                    style={{ backgroundImage: `linear-gradient(90deg, ${BRAND_PRIMARY}, ${BRAND_SECONDARY})` }}
+                                >
                                     {stat.value}
                                 </div>
                                 <div className="text-gray-400 uppercase tracking-wider text-sm">
@@ -73,3 +88,4 @@ export default function About() {
         </section>
     );
 }
+

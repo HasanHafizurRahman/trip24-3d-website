@@ -5,6 +5,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
+// Brand colors
+const BRAND_PRIMARY = "#1B44E4";
+const BRAND_SECONDARY = "#F9BB32";
+
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
 
@@ -44,19 +48,38 @@ export default function Navbar() {
                         <Link
                             key={item}
                             href={`#${item.toLowerCase()}`}
-                            className="text-gray-300 hover:text-cyan-400 transition-colors relative group"
+                            className="text-gray-300 transition-colors relative group"
+                            style={{ ["--hover-color" as string]: BRAND_PRIMARY }}
+                            onMouseEnter={(e) => e.currentTarget.style.color = BRAND_SECONDARY}
+                            onMouseLeave={(e) => e.currentTarget.style.color = '#d1d5db'}
                         >
                             {item}
-                            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 group-hover:w-full transition-all duration-300" />
+                            <span
+                                className="absolute -bottom-1 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
+                                style={{ backgroundColor: BRAND_SECONDARY }}
+                            />
                         </Link>
                     ))}
                 </div>
 
                 {/* CTA */}
-                <button className="px-5 py-2.5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold rounded-full text-sm hover:shadow-lg hover:shadow-cyan-500/30 transition-all">
+                <button
+                    className="px-5 py-2.5 text-white font-bold rounded-full text-sm transition-all hover:scale-105"
+                    style={{
+                        background: `linear-gradient(135deg, ${BRAND_PRIMARY}, ${BRAND_PRIMARY}CC)`,
+                        boxShadow: `0 4px 20px ${BRAND_PRIMARY}40`
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.boxShadow = `0 6px 30px ${BRAND_SECONDARY}50`;
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.boxShadow = `0 4px 20px ${BRAND_PRIMARY}40`;
+                    }}
+                >
                     Get Started
                 </button>
             </div>
         </motion.nav>
     );
 }
+

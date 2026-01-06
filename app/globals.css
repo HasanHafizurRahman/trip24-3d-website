@@ -1,13 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand Colors */
-  --color-brand-primary: #3b82f6;
-  /* Blue 500 */
-  --color-brand-secondary: #8b5cf6;
-  /* Violet 500 */
-  --color-brand-accent: #06b6d4;
-  /* Cyan 500 */
+  /* Brand Colors - Trip24 Official */
+  --color-brand-primary: #1B44E4;
+  /* Deep Blue - Main brand color */
+  --color-brand-secondary: #F9BB32;
+  /* Golden Yellow - Accent & highlights */
+  --color-brand-accent: #1B44E4;
+  /* Same as primary for consistency */
+
+  /* Lighter/Darker variants */
+  --color-brand-primary-light: #4169E8;
+  --color-brand-primary-dark: #1438B8;
+  --color-brand-secondary-light: #FACC5C;
+  --color-brand-secondary-dark: #D9A01E;
 
   /* Backgrounds */
   --color-bg-dark: #050505;

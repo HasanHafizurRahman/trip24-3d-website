@@ -3,6 +3,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+// Brand colors
+const BRAND_PRIMARY = "#1B44E4";
+const BRAND_SECONDARY = "#F9BB32";
+
 const faqs = [
     {
         question: "How do I track my shipment?",
@@ -40,7 +44,10 @@ export default function FAQ() {
     return (
         <section className="min-h-screen w-full flex flex-col items-center justify-center py-24 px-4 sm:px-8 relative overflow-hidden">
             {/* Background */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black via-blue-950/10 to-black pointer-events-none" />
+            <div
+                className="absolute inset-0 pointer-events-none"
+                style={{ background: `linear-gradient(180deg, transparent, ${BRAND_PRIMARY}08, transparent)` }}
+            />
 
             <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -51,7 +58,10 @@ export default function FAQ() {
             >
                 <h2 className="text-4xl md:text-6xl font-black text-white mb-4 tracking-tight">
                     Frequently Asked{" "}
-                    <span className="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
+                    <span
+                        className="bg-clip-text text-transparent"
+                        style={{ backgroundImage: `linear-gradient(90deg, ${BRAND_PRIMARY}, ${BRAND_SECONDARY})` }}
+                    >
                         Questions
                     </span>
                 </h2>
@@ -68,10 +78,11 @@ export default function FAQ() {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: index * 0.1 }}
                         viewport={{ once: true }}
-                        className={`rounded-xl border transition-all duration-300 overflow-hidden ${openIndex === index
-                                ? "border-cyan-500/50 bg-white/[0.05]"
-                                : "border-white/10 bg-white/[0.02]"
-                            }`}
+                        className="rounded-xl border transition-all duration-300 overflow-hidden"
+                        style={{
+                            borderColor: openIndex === index ? `${BRAND_SECONDARY}80` : 'rgba(255,255,255,0.1)',
+                            backgroundColor: openIndex === index ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.02)'
+                        }}
                     >
                         <button
                             onClick={() => toggleFAQ(index)}
@@ -83,7 +94,8 @@ export default function FAQ() {
                             <motion.span
                                 animate={{ rotate: openIndex === index ? 45 : 0 }}
                                 transition={{ duration: 0.2 }}
-                                className="text-cyan-400 text-2xl flex-shrink-0"
+                                className="text-2xl flex-shrink-0"
+                                style={{ color: BRAND_SECONDARY }}
                             >
                                 +
                             </motion.span>
@@ -109,3 +121,4 @@ export default function FAQ() {
         </section>
     );
 }
+

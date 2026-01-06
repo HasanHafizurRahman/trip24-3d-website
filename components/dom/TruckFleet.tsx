@@ -3,6 +3,10 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
+// Brand colors
+const BRAND_PRIMARY = "#1B44E4";
+const BRAND_SECONDARY = "#F9BB32";
+
 const trucks = [
     {
         id: "pickup",
@@ -57,7 +61,10 @@ export default function TruckFleet() {
     return (
         <section id="fleet" className="min-h-screen w-full flex flex-col items-center justify-center py-24 px-4 sm:px-8 relative overflow-hidden">
             {/* Background Elements */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black via-blue-950/10 to-black pointer-events-none" />
+            <div
+                className="absolute inset-0 pointer-events-none"
+                style={{ background: `linear-gradient(180deg, transparent, ${BRAND_PRIMARY}08, transparent)` }}
+            />
 
             <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -67,7 +74,10 @@ export default function TruckFleet() {
                 className="text-center mb-16 relative z-10"
             >
                 <h2 className="text-4xl md:text-6xl font-black text-white mb-4 tracking-tight">
-                    Our <span className="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">Fleet</span>
+                    Our <span
+                        className="bg-clip-text text-transparent"
+                        style={{ backgroundImage: `linear-gradient(90deg, ${BRAND_PRIMARY}, ${BRAND_SECONDARY})` }}
+                    >Fleet</span>
                 </h2>
                 <p className="text-gray-400 text-lg max-w-2xl mx-auto font-light">
                     Versatile solutions for every cargo requirement. Modern, reliable, and ready to roll.
@@ -86,7 +96,15 @@ export default function TruckFleet() {
                         key={truck.id}
                         variants={cardVariants}
                         whileHover={{ y: -10 }}
-                        className="group relative bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm transition-all duration-300 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] flex flex-col"
+                        className="group relative bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm transition-all duration-300 flex flex-col"
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.borderColor = `${BRAND_PRIMARY}80`;
+                            e.currentTarget.style.boxShadow = `0 0 30px ${BRAND_PRIMARY}20`;
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+                            e.currentTarget.style.boxShadow = 'none';
+                        }}
                     >
                         {/* Image Container */}
                         <div className="relative h-48 w-full overflow-hidden p-4 bg-gradient-to-b from-white/5 to-transparent">
@@ -107,23 +125,47 @@ export default function TruckFleet() {
 
                         {/* Content */}
                         <div className="p-6 flex flex-col flex-grow">
-                            <h3 className="text-xl font-bold text-white mb-1 group-hover:text-cyan-400 transition-colors">
+                            <h3
+                                className="text-xl font-bold text-white mb-1 transition-colors duration-300"
+                                style={{ ["--hover-color" as string]: BRAND_SECONDARY }}
+                                onMouseEnter={(e) => e.currentTarget.style.color = BRAND_SECONDARY}
+                                onMouseLeave={(e) => e.currentTarget.style.color = 'white'}
+                            >
                                 {truck.name}
                             </h3>
-                            <div className="h-px w-full bg-gradient-to-r from-white/20 to-transparent my-3" />
+                            <div
+                                className="h-px w-full my-3"
+                                style={{ background: `linear-gradient(90deg, ${BRAND_PRIMARY}40, transparent)` }}
+                            />
 
                             <ul className="space-y-2 mb-6 flex-grow">
                                 {truck.specs.map((spec, i) => (
                                     <li key={i} className="text-xs text-gray-400 flex items-center gap-2">
-                                        <span className="w-1 h-1 rounded-full bg-cyan-500" />
+                                        <span
+                                            className="w-1 h-1 rounded-full"
+                                            style={{ backgroundColor: BRAND_SECONDARY }}
+                                        />
                                         {spec}
                                     </li>
                                 ))}
                             </ul>
 
                             <div className="flex items-center justify-between mt-auto">
-                                <span className="text-cyan-400 font-bold text-lg">{truck.price}</span>
-                                <button className="px-4 py-2 bg-white/10 hover:bg-cyan-500 hover:text-black text-white text-xs font-bold rounded-lg transition-all duration-300">
+                                <span
+                                    className="font-bold text-lg"
+                                    style={{ color: BRAND_SECONDARY }}
+                                >{truck.price}</span>
+                                <button
+                                    className="px-4 py-2 bg-white/10 text-white text-xs font-bold rounded-lg transition-all duration-300"
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.backgroundColor = BRAND_PRIMARY;
+                                        e.currentTarget.style.color = 'white';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                                        e.currentTarget.style.color = 'white';
+                                    }}
+                                >
                                     Book Now
                                 </button>
                             </div>
@@ -134,3 +176,4 @@ export default function TruckFleet() {
         </section>
     );
 }
+

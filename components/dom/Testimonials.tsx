@@ -3,6 +3,10 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
+// Brand colors
+const BRAND_PRIMARY = "#1B44E4";
+const BRAND_SECONDARY = "#F9BB32";
+
 const testimonials = [
     {
         name: "Sarah Johnson",
@@ -63,7 +67,8 @@ function StarRating({ rating }: { rating: number }) {
             {[...Array(5)].map((_, i) => (
                 <svg
                     key={i}
-                    className={`w-4 h-4 ${i < rating ? "text-yellow-400" : "text-gray-600"}`}
+                    className="w-4 h-4"
+                    style={{ color: i < rating ? BRAND_SECONDARY : '#4b5563' }}
                     fill="currentColor"
                     viewBox="0 0 20 20"
                 >
@@ -78,7 +83,10 @@ export default function Testimonials() {
     return (
         <section className="min-h-screen w-full flex flex-col items-center justify-center py-24 px-4 sm:px-8 relative overflow-hidden">
             {/* Background */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black via-blue-950/10 to-black pointer-events-none" />
+            <div
+                className="absolute inset-0 pointer-events-none"
+                style={{ background: `linear-gradient(180deg, transparent, ${BRAND_PRIMARY}08, transparent)` }}
+            />
 
             <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -89,7 +97,10 @@ export default function Testimonials() {
             >
                 <h2 className="text-4xl md:text-6xl font-black text-white mb-4 tracking-tight">
                     What Our Clients{" "}
-                    <span className="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
+                    <span
+                        className="bg-clip-text text-transparent"
+                        style={{ backgroundImage: `linear-gradient(90deg, ${BRAND_PRIMARY}, ${BRAND_SECONDARY})` }}
+                    >
                         Say
                     </span>
                 </h2>
@@ -110,11 +121,20 @@ export default function Testimonials() {
                         key={index}
                         variants={cardVariants}
                         whileHover={{ y: -5 }}
-                        className="group relative p-6 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-sm transition-all duration-300 hover:border-cyan-500/30 hover:shadow-lg hover:shadow-cyan-500/10"
+                        className="group relative p-6 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-sm transition-all duration-300"
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.borderColor = `${BRAND_SECONDARY}50`;
+                            e.currentTarget.style.boxShadow = `0 10px 40px ${BRAND_PRIMARY}15`;
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+                            e.currentTarget.style.boxShadow = 'none';
+                        }}
                     >
                         {/* Quote Icon */}
                         <svg
-                            className="absolute top-4 right-4 w-10 h-10 text-cyan-500/20"
+                            className="absolute top-4 right-4 w-10 h-10"
+                            style={{ color: `${BRAND_PRIMARY}30` }}
                             fill="currentColor"
                             viewBox="0 0 24 24"
                         >
@@ -123,7 +143,10 @@ export default function Testimonials() {
 
                         {/* Content */}
                         <div className="flex items-start gap-4 mb-4">
-                            <div className="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0 border-2 border-cyan-500/30">
+                            <div
+                                className="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0 border-2"
+                                style={{ borderColor: `${BRAND_SECONDARY}50` }}
+                            >
                                 <Image
                                     src={testimonial.avatar}
                                     alt={testimonial.name}
@@ -134,7 +157,10 @@ export default function Testimonials() {
                             <div>
                                 <h4 className="text-white font-bold">{testimonial.name}</h4>
                                 <p className="text-gray-400 text-sm">{testimonial.role}</p>
-                                <p className="text-cyan-400 text-xs">{testimonial.company}</p>
+                                <p
+                                    className="text-xs"
+                                    style={{ color: BRAND_PRIMARY }}
+                                >{testimonial.company}</p>
                             </div>
                         </div>
 
@@ -149,3 +175,4 @@ export default function Testimonials() {
         </section>
     );
 }
+
